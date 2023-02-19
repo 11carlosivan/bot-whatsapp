@@ -2,7 +2,8 @@ const { createBot, createProvider, createFlow, addKeyword } = require('@bot-what
 
 const QRPortalWeb = require('@bot-whatsapp/portal')
 const BaileysProvider = require('@bot-whatsapp/provider/baileys')
-const MockAdapter = require('@bot-whatsapp/database/mock')
+const JsonFileAdapter = require('@bot-whatsapp/database/json')
+
 
 // Link aplicar vacante en el numeral
 const aplicar_vacante = addKeyword('Aplicar a una vacante').addAnswer('# url 1');
@@ -26,7 +27,7 @@ const flowPrincipal = addKeyword([])
 );
 
 const main = async () => {
-    const adapterDB = new MockAdapter()
+    const adapterDB = new JsonFileAdapter()
     const adapterFlow = createFlow([flowPrincipal])
     const adapterProvider = createProvider(BaileysProvider)
 
@@ -36,7 +37,7 @@ const main = async () => {
         database: adapterDB,
     })
 
-
+    QRPortalWeb()
 }
-QRPortalWeb()
+
 main()
